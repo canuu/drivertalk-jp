@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "jp.canuu.app.driver",
+      "sha256_cert_fingerprints": [
+        "FD:A9:B5:12:6E:94:E8:73:6B:75:EF:FA:0C:9F:93:BC:50:7E:08:52:4B:A8:8C:6B:56:0C:73:1C:44:A9:D0:09"
+      ]
+    }
+  }
+]
