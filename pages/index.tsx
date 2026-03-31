@@ -6,11 +6,7 @@ const IOS_STORE_URL = "https://apps.apple.com/jp/app/1531656982";
 const ANDROID_STORE_URL =
   "https://play.google.com/store/apps/details?id=jp.canuu.app.driver";
 
-type Props = {
-  id: string;
-};
-
-export default function PostPage({ id }: Props) {
+export default function IndexPage() {
   return (
     <>
       <Head>
@@ -27,9 +23,7 @@ export default function PostPage({ id }: Props) {
         />
         <h1 style={styles.title}>ドラトーク</h1>
         <p style={styles.description}>
-          この投稿はアプリで確認できます。
-          <br />
-          アプリをインストールして続きをご覧ください。
+          アプリをインストールしてご利用ください。
         </p>
         <a
           href={IOS_STORE_URL}
@@ -49,8 +43,24 @@ export default function PostPage({ id }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params as { id: string };
-  return { props: { id } };
+  const ua = context.req.headers["user-agent"] ?? "";
+
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+
+  if (isIOS) {
+    return {
+      redirect: { destination: IOS_STORE_URL, permanent: false },
+    };
+  }
+
+  if (isAndroid) {
+    return {
+      redirect: { destination: ANDROID_STORE_URL, permanent: false },
+    };
+  }
+
+  return { props: {} };
 };
 
 const styles: { [key: string]: React.CSSProperties } = {
